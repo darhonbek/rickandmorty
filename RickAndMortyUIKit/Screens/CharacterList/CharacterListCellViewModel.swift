@@ -9,7 +9,7 @@ import UIKit
 protocol CharacterListCellViewModelProtocol: AnyObject {
     var name: String { get }
 
-    func getImage(completion: @escaping (UIImage?) -> Void)
+    func getImage(completion: @escaping (UIImage?) -> Void) async
     func cancelImageDownload()
 }
 
@@ -20,21 +20,21 @@ final class CharacterListCellViewModel: CharacterListCellViewModelProtocol {
 
     private let character: Character
     private let networkService: NetworkServiceProtocol
-    private var imageFetchDataTask: URLSessionDataTask?
+    private var imageFetchDataTask: Task<(), Never>?
 
     init(character: Character, networkService: NetworkServiceProtocol) {
         self.character = character
         self.networkService = networkService
     }
 
-    func getImage(completion: @escaping (UIImage?) -> Void) {
+    func getImage(completion: @escaping (UIImage?) -> Void) async {
         guard imageFetchDataTask == nil else { return }
 
-        imageFetchDataTask = networkService.getImage(urlString: character.imageUrl) { result in
-            switch result {
-            case .success(let data):
-                completion(UIImage(data: data))
-            case .failure:
+        imageFetchDataTask = Task {
+            do {
+                let imageData = try await networkService.getImageData(urlString: character.imageUrl)
+                completion(UIImage(data: imageData))
+            } catch {
                 completion(nil)
             }
         }

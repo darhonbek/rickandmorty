@@ -29,12 +29,10 @@ final class CharacterDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Start loading
-        viewModel.loadData { [weak self] in
-            // Finish loading
-            DispatchQueue.main.async {
-                guard let self else { return }
-                self.configure()
+        Task {
+            await viewModel.loadData()
+            DispatchQueue.main.async {  [weak self] in
+                self?.configure()
             }
         }
 
@@ -66,12 +64,12 @@ final class CharacterDetailsViewController: UIViewController {
     private func configure() {
         titleLabel.text = viewModel.name
 
-        // Start loading
-        viewModel.getImage { [weak self] image in
-            // Finish loading
-            DispatchQueue.main.async {
-                guard let self else { return }
-                self.imageView.image = image
+        Task {
+            await viewModel.getImage { [weak self] image in
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    self.imageView.image = image
+                }
             }
         }
     }

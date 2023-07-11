@@ -59,10 +59,12 @@ final class CharacterListCellView: UITableViewCell {
     private func configure() {
         guard let viewModel else { return }
 
-        viewModel.getImage { [weak self] image in
-            DispatchQueue.main.async {
-                guard let self else { return }
-                self.avatarImageView.image = image
+        Task {
+            await viewModel.getImage { [weak self] image in
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    self.avatarImageView.image = image
+                }
             }
         }
 

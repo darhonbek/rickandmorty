@@ -23,9 +23,13 @@ final class CharactersListTableViewController: UITableViewController {
 
         tableView.register(CharacterListCellView.self, forCellReuseIdentifier: "CharacterListCellView")
 
-        viewModel.loadData { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+        Task { [weak self] in
+            do {
+                await self?.viewModel.loadData()
+
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
             }
         }
     }

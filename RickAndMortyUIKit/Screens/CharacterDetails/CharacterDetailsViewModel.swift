@@ -9,8 +9,8 @@ import UIKit
 protocol CharacterDetailsViewModelProtocol: AnyObject {
     var name: String { get }
 
-    func loadData(completion: @escaping () -> Void)
-    func getImage(completion: @escaping (UIImage?) -> Void)
+    func loadData() async
+    func getImage(completion: @escaping (UIImage?) -> Void) async
     func cancelImageDownload()
 }
 
@@ -22,36 +22,29 @@ final class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
     private let characterId: Int
     private let networkService: NetworkServiceProtocol
     private var character: Character?
-    private var imageFetchDataTask: URLSessionDataTask?
+    private var imageFetchDataTask: Task<(), Never>?
 
     init(characterId: Int, networkService: NetworkServiceProtocol) {
         self.characterId = characterId
         self.networkService = networkService
     }
 
-    func loadData(completion: @escaping () -> Void) {
-        networkService.getCharacterDetails(id: characterId) { [weak self] result in
-            guard let self else { return }
-
-            switch result {
-            case .success(let character):
-                self.character = character
-                completion()
-            case .failure:
-                // Tell UI to show error
-                break
-            }
+    func loadData() async {
+        do {
+            character = try await networkService.getCharacterDetails(id: characterId)
+        } catch {
+            // Tell UI to show error
         }
     }
 
-    func getImage(completion: @escaping (UIImage?) -> Void) {
+    func getImage(completion: @escaping (UIImage?) -> Void) async {
         guard imageFetchDataTask == nil, let character else { return }
 
-        imageFetchDataTask = networkService.getImage(urlString: character.imageUrl) { result in
-            switch result {
-            case .success(let data):
-                completion(UIImage(data: data))
-            case .failure:
+        imageFetchDataTask = Task {
+            do {
+                let imageData = try await networkService.getImageData(urlString: character.imageUrl)
+                completion(UIImage(data: imageData))
+            } catch {
                 completion(nil)
             }
         }

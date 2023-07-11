@@ -8,7 +8,7 @@ import Foundation
 protocol CharactersListViewModelProtocol: AnyObject {
     var numberOfRows: Int { get }
 
-    func loadData(completion: @escaping () -> Void)
+    func loadData() async
     func cellViewModel(forRowAt indexPath: IndexPath) -> CharacterListCellViewModelProtocol?
     func didSelectRow(at indexPath: IndexPath)
 }
@@ -25,18 +25,11 @@ final class CharactersListViewModel: CharactersListViewModelProtocol {
         self.flowCoordinator = flowCoordinator
     }
 
-    func loadData(completion: @escaping () -> Void) {
-        networkService.getCharactersList { [weak self] result in
-            guard let self else { return }
-
-            switch result {
-            case .success(let charactersList):
-                self.characters = charactersList.results
-                completion()
-            case .failure:
-                // Tell UI to show error
-                break
-            }
+    func loadData() async {
+        do {
+            characters = try await networkService.getCharactersList().results
+        } catch {
+            // Tell UI to show error
         }
     }
 
