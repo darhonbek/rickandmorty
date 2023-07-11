@@ -3,7 +3,6 @@
 //
 
 
-import Foundation
 import UIKit
 
 final class CharactersListTableViewController: UITableViewController {
@@ -35,11 +34,11 @@ final class CharactersListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows
+        viewModel.numberOfRows
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        60
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

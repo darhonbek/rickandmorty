@@ -11,7 +11,8 @@ struct Character: Decodable {
     let imageUrl: String
 
     enum CodingKeys: String, CodingKey {
-        case id, name
+        case id
+        case name
         case imageUrl = "image"
     }
 }

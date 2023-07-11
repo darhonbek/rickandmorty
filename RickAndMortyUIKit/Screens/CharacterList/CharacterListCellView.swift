@@ -3,7 +3,6 @@
 //
 
 
-import Foundation
 import UIKit
 
 final class CharacterListCellView: UITableViewCell {
@@ -13,13 +12,8 @@ final class CharacterListCellView: UITableViewCell {
         }
     }
 
-    private lazy var avatarImageView: UIImageView = {
-        UIImageView()
-    }()
-
-    private lazy var titleLabel: UILabel = {
-        UILabel()
-    }()
+    private lazy var avatarImageView = UIImageView()
+    private lazy var titleLabel = UILabel()
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

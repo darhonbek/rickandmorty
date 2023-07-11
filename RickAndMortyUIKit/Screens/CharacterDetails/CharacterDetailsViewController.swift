@@ -3,19 +3,13 @@
 //
 
 
-import Foundation
 import UIKit
 
 final class CharacterDetailsViewController: UIViewController {
     private let viewModel: CharacterDetailsViewModelProtocol
 
-    private lazy var imageView: UIImageView = {
-        UIImageView()
-    }()
-
-    private lazy var titleLabel: UILabel = {
-        UILabel()
-    }()
+    private lazy var imageView = UIImageView()
+    private lazy var titleLabel = UILabel()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4221AD142A5CCC1E009B9A7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221AD132A5CCC1E009B9A7B /* AppDelegate.swift */; };
 		4221AD162A5CCC1E009B9A7B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221AD152A5CCC1E009B9A7B /* SceneDelegate.swift */; };
 		4221AD1B2A5CCC1E009B9A7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4221AD192A5CCC1E009B9A7B /* Main.storyboard */; };
 		4221AD1D2A5CCC1F009B9A7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4221AD1C2A5CCC1F009B9A7B /* Assets.xcassets */; };
@@ -25,6 +24,7 @@
 		4221AD5B2A5CF1E3009B9A7B /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221AD5A2A5CF1E3009B9A7B /* FlowCoordinator.swift */; };
 		4221AD5D2A5CF2C5009B9A7B /* CharacterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221AD5C2A5CF2C5009B9A7B /* CharacterDetailsViewController.swift */; };
 		4221AD5F2A5CF2E4009B9A7B /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221AD5E2A5CF2E4009B9A7B /* CharacterDetailsViewModel.swift */; };
+		42E17C7E2A5D346500D0214A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E17C7D2A5D346500D0214A /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +46,6 @@
 
 /* Begin PBXFileReference section */
 		4221AD102A5CCC1E009B9A7B /* RickAndMortyUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4221AD132A5CCC1E009B9A7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4221AD152A5CCC1E009B9A7B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4221AD1A2A5CCC1E009B9A7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4221AD1C2A5CCC1F009B9A7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		4221AD5A2A5CF1E3009B9A7B /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
 		4221AD5C2A5CF2C5009B9A7B /* CharacterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewController.swift; sourceTree = "<group>"; };
 		4221AD5E2A5CF2E4009B9A7B /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
+		42E17C7D2A5D346500D0214A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +124,7 @@
 				4221AD1C2A5CCC1F009B9A7B /* Assets.xcassets */,
 				4221AD1E2A5CCC1F009B9A7B /* LaunchScreen.storyboard */,
 				4221AD212A5CCC1F009B9A7B /* Info.plist */,
-				4221AD132A5CCC1E009B9A7B /* AppDelegate.swift */,
+				42E17C7D2A5D346500D0214A /* AppDelegate.swift */,
 				4221AD152A5CCC1E009B9A7B /* SceneDelegate.swift */,
 			);
 			path = RickAndMortyUIKit;
@@ -325,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42E17C7E2A5D346500D0214A /* AppDelegate.swift in Sources */,
 				4221AD562A5CE5FD009B9A7B /* CharactersListViewModel.swift in Sources */,
 				4221AD5B2A5CF1E3009B9A7B /* FlowCoordinator.swift in Sources */,
 				4221AD592A5CE67D009B9A7B /* CharactersListTableViewController.swift in Sources */,
@@ -332,7 +333,6 @@
 				4221AD5D2A5CF2C5009B9A7B /* CharacterDetailsViewController.swift in Sources */,
 				4221AD542A5CE1D0009B9A7B /* CharacterListCellView.swift in Sources */,
 				4221AD462A5CCE1B009B9A7B /* Character.swift in Sources */,
-				4221AD142A5CCC1E009B9A7B /* AppDelegate.swift in Sources */,
 				4221AD5F2A5CF2E4009B9A7B /* CharacterDetailsViewModel.swift in Sources */,
 				4221AD482A5CCEEA009B9A7B /* CharactersList.swift in Sources */,
 				4221AD4D2A5CCF86009B9A7B /* NetworkService.swift in Sources */,

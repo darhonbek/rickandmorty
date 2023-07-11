@@ -27,7 +27,7 @@ final class CharactersListViewModel: CharactersListViewModelProtocol {
 
     func loadData() async {
         do {
-            characters = try await networkService.getCharactersList().results
+            characters = try await networkService.getCharactersList().characters
         } catch {
             // Tell UI to show error
         }

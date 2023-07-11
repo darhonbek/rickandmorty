@@ -6,5 +6,9 @@
 import Foundation
 
 struct CharactersList: Decodable {
-    let results: [Character]
+    let characters: [Character]
+
+    enum CodingKeys: String, CodingKey {
+        case characters = "results"
+    }
 }
