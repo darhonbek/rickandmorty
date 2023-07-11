@@ -28,7 +28,7 @@ enum NetworkError: Error {
 protocol NetworkServiceProtocol {
     func getCharactersList() async throws -> CharactersList
     func getCharacterDetails(id: Int) async throws -> Character
-    func getImageData(urlString: String) async throws -> Data
+    func getImageData(url: URL) async throws -> Data
 }
 
 final class NetworkService: NetworkServiceProtocol {
@@ -54,12 +54,8 @@ final class NetworkService: NetworkServiceProtocol {
         return model
     }
 
-    func getImageData(urlString: String) async throws -> Data {
-        guard let url = URL(string: urlString) else {
-            throw NetworkError.invalidUrl
-        }
-
-        return try await fetchData(from: url)
+    func getImageData(url: URL) async throws -> Data {
+        try await fetchData(from: url)
     }
 
     private func fetchData(from url: URL) async throws -> Data {

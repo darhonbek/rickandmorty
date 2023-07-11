@@ -34,6 +34,6 @@ final class CharacterDetailsViewModel: CharacterDetailsViewModelProtocol {
         guard let character else {
             throw NetworkError.invalidUrl
         }
-        return try await networkService.getImageData(urlString: character.imageUrl)
+        return try await networkService.getImageData(url: character.imageUrl)
     }
 }

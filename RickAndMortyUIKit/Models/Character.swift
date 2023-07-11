@@ -8,7 +8,7 @@ import Foundation
 struct Character: Decodable {
     let id: Int
     let name: String
-    let imageUrl: String
+    let imageUrl: URL
 
     enum CodingKeys: String, CodingKey {
         case id

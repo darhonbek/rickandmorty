@@ -25,6 +25,6 @@ final class CharacterListCellViewModel: CharacterListCellViewModelProtocol {
     }
 
     func getImage() async throws -> Data {
-        try await networkService.getImageData(urlString: character.imageUrl)
+        try await networkService.getImageData(url: character.imageUrl)
     }
 }
