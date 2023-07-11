@@ -8,8 +8,7 @@ import UIKit
 protocol CharacterListCellViewModelProtocol: AnyObject {
     var name: String { get }
 
-    func getImage(completion: @escaping (UIImage?) -> Void) async
-    func cancelImageDownload()
+    func getImage() async throws -> Data
 }
 
 final class CharacterListCellViewModel: CharacterListCellViewModelProtocol {
@@ -19,28 +18,13 @@ final class CharacterListCellViewModel: CharacterListCellViewModelProtocol {
 
     private let character: Character
     private let networkService: NetworkServiceProtocol
-    private var imageFetchDataTask: Task<(), Never>?
 
     init(character: Character, networkService: NetworkServiceProtocol) {
         self.character = character
         self.networkService = networkService
     }
 
-    func getImage(completion: @escaping (UIImage?) -> Void) async {
-        guard imageFetchDataTask == nil else { return }
-
-        imageFetchDataTask = Task {
-            do {
-                let imageData = try await networkService.getImageData(urlString: character.imageUrl)
-                completion(UIImage(data: imageData))
-            } catch {
-                completion(nil)
-            }
-        }
-    }
-
-    func cancelImageDownload() {
-        imageFetchDataTask?.cancel()
-        imageFetchDataTask = nil
+    func getImage() async throws -> Data {
+        try await networkService.getImageData(urlString: character.imageUrl)
     }
 }

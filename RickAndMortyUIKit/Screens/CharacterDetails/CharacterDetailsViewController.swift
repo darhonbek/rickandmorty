@@ -10,6 +10,7 @@ final class CharacterDetailsViewController: UIViewController {
 
     private lazy var imageView = UIImageView()
     private lazy var titleLabel = UILabel()
+    private var imageFetchTask: Task<(), Never>?
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -23,18 +24,25 @@ final class CharacterDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Task {
-            await viewModel.loadData()
-            DispatchQueue.main.async {  [weak self] in
-                self?.configure()
-            }
-        }
-
+        loadData()
         setupUI()
     }
 
+    private func loadData() {
+        Task {
+            do {
+                try await viewModel.loadData()
+                DispatchQueue.main.async {  [weak self] in
+                    self?.configure()
+                }
+            } catch {
+                // ...
+            }
+        }
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.cancelImageDownload()
+        imageFetchTask?.cancel()
         super.viewDidDisappear(animated)
     }
 
@@ -63,12 +71,17 @@ final class CharacterDetailsViewController: UIViewController {
     private func configure() {
         titleLabel.text = viewModel.name
 
-        Task {
-            await viewModel.getImage { [weak self] image in
-                DispatchQueue.main.async {
+
+        imageFetchTask = Task {
+            do {
+                let imageData = try await viewModel.getImage()
+
+                DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    self.imageView.image = image
+                    self.imageView.image = UIImage(data: imageData)
                 }
+            } catch {
+                // ...
             }
         }
     }

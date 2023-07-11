@@ -21,16 +21,7 @@ final class CharactersListTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.register(CharacterListCellView.self, forCellReuseIdentifier: "CharacterListCellView")
-
-        Task { [weak self] in
-            do {
-                await self?.viewModel.loadData()
-
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            }
-        }
+        loadData()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,5 +46,19 @@ final class CharactersListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.didSelectRow(at: indexPath)
+    }
+
+    private func loadData() {
+        Task { [weak self] in
+            do {
+                try await self?.viewModel.loadData()
+
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            } catch {
+                // ...
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ final class CharacterListCellView: UITableViewCell {
 
     private lazy var avatarImageView = UIImageView()
     private lazy var titleLabel = UILabel()
+    private var imageFetchTask: Task<(), Never>?
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,7 +27,7 @@ final class CharacterListCellView: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        viewModel?.cancelImageDownload()
+        imageFetchTask?.cancel()
     }
 
     func resetContent() {
@@ -58,12 +59,16 @@ final class CharacterListCellView: UITableViewCell {
     private func configure() {
         guard let viewModel else { return }
 
-        Task {
-            await viewModel.getImage { [weak self] image in
-                DispatchQueue.main.async {
+        imageFetchTask = Task {
+            do {
+                let imageData = try await viewModel.getImage()
+
+                DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    self.avatarImageView.image = image
+                    self.avatarImageView.image = UIImage(data: imageData)
                 }
+            } catch {
+                // ...
             }
         }
 
