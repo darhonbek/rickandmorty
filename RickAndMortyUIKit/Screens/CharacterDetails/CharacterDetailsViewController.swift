@@ -39,6 +39,11 @@ final class CharacterDetailsViewController: UIViewController {
         setupUI()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        viewModel.cancelImageDownload()
+        super.viewDidDisappear(animated)
+    }
+
     private func setupUI() {
         view.backgroundColor = .white
 

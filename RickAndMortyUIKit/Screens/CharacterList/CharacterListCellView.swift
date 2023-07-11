@@ -35,6 +35,11 @@ final class CharacterListCellView: UITableViewCell {
         viewModel?.cancelImageDownload()
     }
 
+    func resetContent() {
+        titleLabel.text = nil
+        avatarImageView.image = nil
+    }
+
     private func setupSubviews() {
         contentView.addSubview(avatarImageView)
         contentView.addSubview(titleLabel)

@@ -48,6 +48,7 @@ final class CharactersListTableViewController: UITableViewController {
         }
 
         let cellViewModel = viewModel.cellViewModel(forRowAt: indexPath)
+        cell.resetContent()
         cell.viewModel = cellViewModel
 
         return cell
